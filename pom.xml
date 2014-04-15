@@ -16,10 +16,72 @@
     
     <dependencies>
         <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>1.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cloudservices.brokerage</groupId>
+            <artifactId>Commons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cloudservices.brokerage.policy</groupId>
+            <artifactId>PolicyCommons</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.4.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.1.0.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.3.4.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>3.1.0.CR2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.6</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.29</version>
         </dependency>
     </dependencies>
 
@@ -72,5 +134,46 @@
             </plugin>
         </plugins>
     </build>
-
+    
+    <repositories>
+        <repository>
+            <id>repository.jboss.org-public</id>
+            <name>JBoss repository</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public</url>
+        </repository>
+        <repository>  
+            <id>jboss-public-repository-group</id>  
+            <name>JBoss Public Maven Repository Group</name>  
+            <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>  
+            <layout>default</layout>  
+            <releases>  
+                <enabled>true</enabled>  
+                <updatePolicy>never</updatePolicy>  
+            </releases>  
+            <snapshots>  
+                <enabled>true</enabled>  
+                <updatePolicy>never</updatePolicy>  
+            </snapshots>  
+        </repository>
+        <repository>
+            <id>jbossreleases</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>Commons-mvn-repo</id>
+            <url>https://raw.github.com/arashk1368/Commons/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>PolicyCommons-mvn-repo</id>
+            <url>https://raw.github.com/arashk1368/PolicyCommons/mvn-repo/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
