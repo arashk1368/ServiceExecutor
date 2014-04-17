@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/crawler4jService/crawler4jWS?wsdl" uri="wsdl/localhost_8080/crawler4jService/crawler4jWS.wsdl"/>
+    <system systemId="http://localhost:8080/crawler4jService/crawler4jWS?xsd=1" uri="wsdl/localhost_8080/crawler4jService/crawler4jWS.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/websphinxService/WebsphinxWS?wsdl" uri="wsdl/localhost_8080/websphinxService/WebsphinxWS.wsdl"/>
+    <system systemId="http://localhost:8080/websphinxService/WebsphinxWS?xsd=1" uri="wsdl/localhost_8080/websphinxService/WebsphinxWS.xsd_1.xsd"/>
+</catalog>

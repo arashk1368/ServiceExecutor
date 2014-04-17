@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://service.crawler4jservice.crawling_services.policy.brokerage.cloudservices/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://service.crawler4jservice.crawling_services.policy.brokerage.cloudservices/">
+
+<xs:element name="Exception" type="tns:Exception"/>
+
+<xs:element name="IOException" type="tns:IOException"/>
+
+<xs:element name="crawl" type="tns:crawl"/>
+
+<xs:element name="crawlResponse" type="tns:crawlResponse"/>
+
+<xs:element name="filteredCrawl" type="tns:filteredCrawl"/>
+
+<xs:element name="filteredCrawlResponse" type="tns:filteredCrawlResponse"/>
+
+<xs:element name="isFilterSupported" type="tns:isFilterSupported"/>
+
+<xs:element name="isFilterSupportedResponse" type="tns:isFilterSupportedResponse"/>
+
+<xs:complexType name="isFilterSupported">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="isFilterSupportedResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crawl">
+<xs:sequence>
+<xs:element name="seeds" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crawlResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="IOException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="Exception">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="filteredCrawl">
+<xs:sequence>
+<xs:element name="seeds" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="filter" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="filteredCrawlResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
