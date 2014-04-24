@@ -53,7 +53,6 @@
 <xs:complexType name="filteredCrawl">
 <xs:sequence>
 <xs:element name="seeds" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-<xs:element name="filter" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

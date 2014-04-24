@@ -46,13 +46,7 @@ public class ServiceCaller {
         List<String> seeds = (List<String>) state.getParam("seeds");
 
         if (toCall.getName().contains("crawler4jFiltered")) {
-            Object filterParam = state.getParam("filter");
-            if (!(filterParam instanceof String)) {
-                LOGGER.log(Level.SEVERE, "State does not contain filter and filtered crawler service performed");
-                throw new ServiceExecutionException("State does not contain filter and filtered crawler service performed");
-            }
-            String filter = (String) filterParam;
-            return performCrawler4jFiltered(seeds, filter, wsdlURL);
+            return performCrawler4jFiltered(seeds, wsdlURL);
 
         } else if (toCall.getName().contains("crawler4j")) {
             return performCrawler4j(seeds, wsdlURL);
@@ -66,11 +60,11 @@ public class ServiceCaller {
         }
     }
 
-    private List<String> performCrawler4jFiltered(List<String> seeds, String filter, URL wsdlURL) throws ServiceExecutionException {
+    private List<String> performCrawler4jFiltered(List<String> seeds, URL wsdlURL) throws ServiceExecutionException {
         try {
             Crawler4JWS_Service service = new Crawler4JWS_Service(wsdlURL);
             Crawler4JWS port = service.getCrawler4JWSPort();
-            return port.filteredCrawl(seeds, filter);
+            return port.filteredCrawl(seeds);
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "Exception in crawler4jFiltered service", ex);
             throw new ServiceExecutionException("Exception in crawler4jFiltered service", ex);

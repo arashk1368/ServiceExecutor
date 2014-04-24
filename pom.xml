@@ -175,6 +175,20 @@
                         <id>wsimport-generate-WebsphinxWS</id>
                         <phase>generate-sources</phase>
                     </execution>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>localhost_8080/PolicyManager/PolicyManagerWS.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <wsdlLocation>http://localhost:8080/PolicyManager/PolicyManagerWS?wsdl</wsdlLocation>
+                            <staleFile>${project.build.directory}/jaxws/stale/PolicyManagerWS.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-PolicyManagerWS</id>
+                        <phase>generate-sources</phase>
+                    </execution>
                 </executions>
                 <dependencies>
                     <dependency>

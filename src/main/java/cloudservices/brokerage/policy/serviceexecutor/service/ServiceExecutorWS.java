@@ -49,7 +49,8 @@ public class ServiceExecutorWS {
      */
     @WebMethod(operationName = "executeService")
     public Object executeService(@WebParam(name = "service") Service service,
-            @WebParam(name = "initialState") State initialState)
+            @WebParam(name = "initialState") State initialState,
+            @WebParam(name = "goalState") State goalState)
             throws IOException, DAOException, ServiceExecutionException {
         setupLoggers();
 
@@ -66,25 +67,26 @@ public class ServiceExecutorWS {
 
             //****************SAMPLE DATA******************
             ServiceDAO serviceDAO = new ServiceDAO();
-            service = serviceDAO.getById(4L);
+            service = serviceDAO.getByName("Composite Level 3 Crawler");
             PropositionDAO pDAO = new PropositionDAO();
             Set<Proposition> initials = new HashSet<>();
-            initials.add(pDAO.getById(7L)); //Filter Available
-            initials.add(pDAO.getById(8L)); //Seeds Available
+            initials.add(pDAO.getByName("Seeds Available")); //Seeds Available
             HashMap<String, Object> params = new HashMap<>();
             List<String> seeds = new ArrayList<>();
             seeds.add("http://www.arashkhodadadi.com/");
             params.put("seeds", seeds);
-            String filter = ".*(\\.(css|js|bmp|gif|jpe?g|png|tiff?|mid|mp2|mp3|mp4|wav|avi|mov|mpeg|ram|m4v|pdf|rm|smil|wmv|swf|wma|zip|rar|gz))$";
-            params.put("filter", filter);
             initialState = new State();
             initialState.setNumber(0);
             initialState.setPropositions(initials);
             initialState.setParams(params);
+            goalState = new State();
+            Set<Proposition> goals = new HashSet<>();
+            goals.add(pDAO.getByName("Level 3 Completed"));
+            goalState.setPropositions(goals);
 
-            ServiceOperator operator = new ServiceOperator();
+            ServiceOperator operator = new ServiceOperator(initialState,goalState);
             Object result = operator.execute(service, initialState);
-            
+
             //only for crawler services
             List<String> finalResult = new ArrayList<>();
             Map<String, Object> resultMap = (Map<String, Object>) result;
