@@ -8,9 +8,6 @@ import cloudservices.brokerage.commons.utils.file_utils.ResourceFileUtil;
 import cloudservices.brokerage.commons.utils.logging.LoggerSetup;
 import cloudservices.brokerage.policy.policycommons.model.DAO.BaseDAO;
 import cloudservices.brokerage.policy.policycommons.model.DAO.DAOException;
-import cloudservices.brokerage.policy.policycommons.model.DAO.PropositionDAO;
-import cloudservices.brokerage.policy.policycommons.model.DAO.ServiceDAO;
-import cloudservices.brokerage.policy.policycommons.model.entities.Proposition;
 import cloudservices.brokerage.policy.policycommons.model.entities.Service;
 import cloudservices.brokerage.policy.policycommons.model.entities.State;
 import cloudservices.brokerage.policy.serviceexecutor.logic.ServiceExecutionException;
@@ -18,10 +15,8 @@ import cloudservices.brokerage.policy.serviceexecutor.logic.ServiceOperator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -48,43 +43,31 @@ public class ServiceExecutorWS {
      * Web service operation
      */
     @WebMethod(operationName = "executeService")
-    public Object executeService(@WebParam(name = "service") Service service,
+    public List executeService(@WebParam(name = "service") Service service,
             @WebParam(name = "initialState") State initialState,
             @WebParam(name = "goalState") State goalState)
             throws IOException, DAOException, ServiceExecutionException {
         setupLoggers();
 
-//        if (service == null) {
-//            throw new IllegalArgumentException("Service can not be null");
-//        }
-//        if (initialState == null) {
-//            throw new IllegalArgumentException("Initial state can not be null");
-
+        if (service == null) {
+            throw new IllegalArgumentException("Service can not be null");
+        }
+        if (initialState == null) {
+            throw new IllegalArgumentException("Initial state can not be null");
+        }
+        if (initialState.getParam("seeds") instanceof String) {
+            List<String> seeds = new ArrayList<>();
+            seeds.add((String) initialState.getParam("seeds"));
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("seeds", seeds);
+            initialState.setParams(params);
+        }
         try {
             Configuration configuration = new Configuration();
             configuration.configure("hibernate.cfg.xml");
             BaseDAO.openSession(configuration);
 
-            //****************SAMPLE DATA******************
-            ServiceDAO serviceDAO = new ServiceDAO();
-            service = serviceDAO.getByName("Composite Level 3 Crawler");
-            PropositionDAO pDAO = new PropositionDAO();
-            Set<Proposition> initials = new HashSet<>();
-            initials.add(pDAO.getByName("Seeds Available")); //Seeds Available
-            HashMap<String, Object> params = new HashMap<>();
-            List<String> seeds = new ArrayList<>();
-            seeds.add("http://www.arashkhodadadi.com/");
-            params.put("seeds", seeds);
-            initialState = new State();
-            initialState.setNumber(0);
-            initialState.setPropositions(initials);
-            initialState.setParams(params);
-            goalState = new State();
-            Set<Proposition> goals = new HashSet<>();
-            goals.add(pDAO.getByName("Level 3 Completed"));
-            goalState.setPropositions(goals);
-
-            ServiceOperator operator = new ServiceOperator(initialState,goalState);
+            ServiceOperator operator = new ServiceOperator(initialState, goalState);
             Object result = operator.execute(service, initialState);
 
             //only for crawler services

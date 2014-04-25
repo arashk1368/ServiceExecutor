@@ -83,15 +83,14 @@ public class ServiceOperator {
             } else {
                 result = executeServiceLevel(servicesLevels[level].split(","), currentState);
                 level++;
+                stateManager.addResultToState(next, result);
+                currentState = next;
                 if (level >= servicesLevels.length) {
                     finished = true;
-                } else {
-                    stateManager.addResultToState(next, result);
-                    currentState = next;
                 }
             }
         }
-        return result;
+        return currentState.getParams();
     }
 
     private Object executeServiceLevel(String[] level, State currentState)
